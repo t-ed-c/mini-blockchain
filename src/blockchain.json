@@ -1,0 +1,26 @@
+{
+  "difficulty": 2,
+  "chain": [
+    {
+      "index": 0,
+      "transactions": [
+        "Genesis Block"
+      ],
+      "timestamp": 1752923452.628513,
+      "previous_hash": "0",
+      "nonce": 0,
+      "hash": "5473045e2d99a4f6379ecf8bc97b3656df1e229e38e8099ea8cd15fb6217a9be"
+    },
+    {
+      "index": 1,
+      "transactions": [
+        "Alice sends 20 coins to Charlie"
+      ],
+      "timestamp": 1752923468.699405,
+      "previous_hash": "5473045e2d99a4f6379ecf8bc97b3656df1e229e38e8099ea8cd15fb6217a9be",
+      "nonce": 70,
+      "hash": "00528cfebbcfc07fda6360e72e27a4607516564046d6e466f724d1321cecca73"
+    }
+  ],
+  "pending_transactions": []
+}

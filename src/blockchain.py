@@ -63,9 +63,44 @@ class Blockchain:
     def to_dict(self):
         """Serialize blockchain to JSON-serializable format"""
         return {
+            "difficulty": self.difficulty,
             "chain": [block.__dict__ for block in self.chain],
             "pending_transactions": self.pending_transactions
         }
+    
+    def save_to_file(self, filename="blockchain.json"):
+        """Save blockchain to JSON file"""
+        with open(filename, 'w') as f:
+            json.dump(self.to_dict(), f, indent=2)
+    
+    @classmethod
+    def load_from_file(cls, filename="blockchain.json"):
+        """Load blockchain from JSON file"""
+        try:
+            with open(filename, 'r') as f:
+                data = json.load(f)
+            
+            # Create new blockchain instance
+            bc = cls(difficulty=data.get('difficulty', 2))
+            bc.pending_transactions = data.get('pending_transactions', [])
+            
+            # Reconstruct blocks
+            bc.chain = []
+            for block_data in data['chain']:
+                block = Block(
+                    index=block_data['index'],
+                    transactions=block_data['transactions'],
+                    timestamp=block_data['timestamp'],
+                    previous_hash=block_data['previous_hash']
+                )
+                block.nonce = block_data['nonce']
+                block.hash = block_data['hash']
+                bc.chain.append(block)
+            
+            return bc
+        except FileNotFoundError:
+            # Return new blockchain if file doesn't exist
+            return cls()
     
     def __repr__(self):
         return f"Blockchain<blocks={len(self.chain)}, pending_tx={len(self.pending_transactions)}, difficulty={self.difficulty}>"
