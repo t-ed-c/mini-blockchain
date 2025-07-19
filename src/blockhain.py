@@ -3,10 +3,12 @@ import time
 import json
 
 class Blockchain:
-    def __init__(self):
+    def __init__(self, difficulty=2):
         """
         Initialize a new blockchain with genesis block
+        :param difficulty: Number of leading zeros required for mining
         """
+        self.difficulty = difficulty
         self.chain = [self.create_genesis_block()]
         self.pending_transactions = []  # Temporary storage before mining
         
@@ -14,12 +16,15 @@ class Blockchain:
         """
         Create the first block in the blockchain (genesis block)
         """
-        return Block(
+        genesis = Block(
             index=0,
             transactions=["Genesis Block"],
             timestamp=time.time(),
             previous_hash="0"
         )
+        # Manually set the genesis hash (no mining needed)
+        genesis.hash = genesis.calculate_hash()
+        return genesis
     
     def add_transaction(self, transaction):
         """
@@ -30,10 +35,10 @@ class Blockchain:
     
     def mine_pending_transactions(self):
         """
-        Create a new block with pending transactions
+        Create a new block with pending transactions and mine it
         """
         if not self.pending_transactions:
-            print("No transactions to mine!")
+            print("⚠️  No transactions to mine!")
             return None
             
         new_block = Block(
@@ -42,6 +47,9 @@ class Blockchain:
             timestamp=time.time(),
             previous_hash=self.last_block.hash
         )
+        
+        # Mine the block with the current difficulty
+        new_block.mine_block(self.difficulty)
         
         self.chain.append(new_block)
         self.pending_transactions = []
@@ -60,7 +68,7 @@ class Blockchain:
         }
     
     def __repr__(self):
-        return f"Blockchain<blocks={len(self.chain)}, pending_tx={len(self.pending_transactions)}>"
+        return f"Blockchain<blocks={len(self.chain)}, pending_tx={len(self.pending_transactions)}, difficulty={self.difficulty}>"
 
     def is_chain_valid(self):
         """
@@ -127,10 +135,18 @@ class Blockchain:
         tampered_block.transactions = original_transactions
         print("\nRestored original data")
         print("Chain valid after restoration:", self.is_chain_valid())
+    
+    def adjust_difficulty(self, new_difficulty):
+        """
+        Adjust the mining difficulty
+        :param new_difficulty: New number of leading zeros required
+        """
+        self.difficulty = new_difficulty
+        print(f"🔧 Difficulty adjusted to {new_difficulty}")
 
-# Test the validation
+# Test the blockchain with mining
 if __name__ == "__main__":
-    bc = Blockchain()
+    bc = Blockchain(difficulty=2)
     
     # Add and mine some transactions
     bc.add_transaction("Alice pays Bob 1 BTC")
@@ -146,3 +162,9 @@ if __name__ == "__main__":
     
     # Run the tamper demonstration
     bc.tamper_test()
+    
+    # Test difficulty adjustment
+    bc.adjust_difficulty(3)
+    bc.add_transaction("Dave pays Eve 0.1 BTC")
+    bc.mine_pending_transactions()
+    print(f"New block mined with difficulty {bc.difficulty}")
