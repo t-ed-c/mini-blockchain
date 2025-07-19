@@ -1,0 +1,36 @@
+{
+  "difficulty": 2,
+  "chain": [
+    {
+      "index": 0,
+      "transactions": [
+        "Genesis Block"
+      ],
+      "timestamp": 1752961916.6578238,
+      "previous_hash": "0",
+      "nonce": 0,
+      "hash": "353f74c86966177ca17c29dc5bbedafe412527e9358fc28ba9415b57ac849978"
+    },
+    {
+      "index": 1,
+      "transactions": [
+        "Node1 TX: Alice pays Bob 5 BTC"
+      ],
+      "timestamp": 1752961932.9227035,
+      "previous_hash": "353f74c86966177ca17c29dc5bbedafe412527e9358fc28ba9415b57ac849978",
+      "nonce": 85,
+      "hash": "002ead430be493cc036c60243940340f5af65e79d00a5c59368b3fe238ecd832"
+    },
+    {
+      "index": 2,
+      "transactions": [
+        "\"Alice pays Bob 5 BTC\""
+      ],
+      "timestamp": 1752965094.9045737,
+      "previous_hash": "002ead430be493cc036c60243940340f5af65e79d00a5c59368b3fe238ecd832",
+      "nonce": 79,
+      "hash": "00018bab0c5da1b77fca124bf2450f375ee1f1b31097b3602f7cbe3f34744721"
+    }
+  ],
+  "pending_transactions": []
+}

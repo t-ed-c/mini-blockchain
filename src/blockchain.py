@@ -55,6 +55,26 @@ class Blockchain:
         self.pending_transactions = []
         return new_block
     
+    def add_block_from_peer(self, block_data):
+        """
+        Add a block received from a peer
+        :param block_data: Dictionary with block properties
+        """
+        new_block = Block(
+            index=block_data['index'],
+            transactions=block_data['transactions'],
+            timestamp=block_data['timestamp'],
+            previous_hash=block_data['previous_hash']
+        )
+        new_block.hash = block_data['hash']
+        new_block.nonce = block_data['nonce']
+        
+        # Validate and add to chain
+        if self.is_chain_valid() and self.last_block.hash == new_block.previous_hash:
+            self.chain.append(new_block)
+            return True
+        return False
+    
     @property
     def last_block(self):
         """Get the most recent block in the chain"""
