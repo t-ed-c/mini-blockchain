@@ -62,40 +62,87 @@ class Blockchain:
     def __repr__(self):
         return f"Blockchain<blocks={len(self.chain)}, pending_tx={len(self.pending_transactions)}>"
 
-# Test the blockchain
+    def is_chain_valid(self):
+        """
+        Verify the integrity of the entire blockchain
+        Returns True if valid, False otherwise
+        """
+        # Check genesis block
+        genesis = self.chain[0]
+        if genesis.index != 0:
+            print("❗ Invalid genesis block index")
+            return False
+        if genesis.previous_hash != "0":
+            print("❗ Genesis block has invalid previous hash")
+            return False
+        if genesis.hash != genesis.calculate_hash():
+            print("❗ Genesis block hash invalid")
+            return False
+        
+        # Check subsequent blocks
+        for i in range(1, len(self.chain)):
+            current = self.chain[i]
+            previous = self.chain[i-1]
+            
+            # Validate block linkage
+            if current.previous_hash != previous.hash:
+                print(f"❌ Block {i}: Broken link to previous block")
+                return False
+                
+            # Validate current block's hash
+            if current.hash != current.calculate_hash():
+                print(f"❌ Block {i}: Corrupted block data")
+                return False
+                
+            # Validate index sequence
+            if current.index != i:
+                print(f"❌ Block {i}: Invalid index {current.index}")
+                return False
+                
+        return True
+    
+    def tamper_test(self):
+        """
+        Demonstrate blockchain tamper detection
+        """
+        print("\n=== Running Tamper Test ===")
+        
+        # Add some transactions and mine a block
+        self.add_transaction("Test transaction 1")
+        self.add_transaction("Test transaction 2")
+        self.mine_pending_transactions()
+        
+        print("Initial chain valid:", self.is_chain_valid())
+        
+        # Tamper with data in the new block
+        tampered_block = self.chain[-1]
+        print(f"\nTampering with block {tampered_block.index}...")
+        original_transactions = tampered_block.transactions.copy()
+        tampered_block.transactions = ["HACKED: Malicious transaction"]
+        
+        # Validation should fail
+        print("After tampering, chain valid:", self.is_chain_valid())
+        
+        # Restore original data
+        tampered_block.transactions = original_transactions
+        print("\nRestored original data")
+        print("Chain valid after restoration:", self.is_chain_valid())
+
+# Test the validation
 if __name__ == "__main__":
-    # Initialize blockchain
     bc = Blockchain()
-    print(f"Created: {bc}")
-    print(f"Genesis block: {bc.chain[0]}\n")
     
-    # Add some transactions
-    bc.add_transaction("Alice pays Bob 5 BTC")
-    bc.add_transaction("Bob pays Charlie 3 BTC")
-    print(f"Added transactions: {bc.pending_transactions}")
-    print(f"Status: {bc}\n")
-    
-    # Mine a new block
-    print("Mining block...")
-    new_block = bc.mine_pending_transactions()
-    print(f"Mined block: {new_block}")
-    print(f"Status: {bc}\n")
-    
-    # Add more transactions
-    bc.add_transaction("Charlie pays Dave 1 BTC")
-    bc.add_transaction("Dave pays Alice 0.5 BTC")
-    print(f"Added transactions: {bc.pending_transactions}")
-    
-    # Mine second block
-    print("\nMining second block...")
+    # Add and mine some transactions
+    bc.add_transaction("Alice pays Bob 1 BTC")
     bc.mine_pending_transactions()
-    print(f"Status: {bc}")
     
-    # Print full chain
-    print("\n=== Full Blockchain ===")
-    for i, block in enumerate(bc.chain):
-        print(f"Block {i}: {block}")
+    bc.add_transaction("Bob pays Charlie 0.5 BTC")
+    bc.add_transaction("Charlie pays Dave 0.2 BTC")
+    bc.mine_pending_transactions()
     
-    # Export to JSON
-    print("\n=== Blockchain JSON ===")
-    print(json.dumps(bc.to_dict(), indent=2))
+    print("=== Initial Blockchain ===")
+    print(f"Chain length: {len(bc.chain)} blocks")
+    print("Chain valid:", bc.is_chain_valid())
+    
+    # Run the tamper demonstration
+    bc.tamper_test()
