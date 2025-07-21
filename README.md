@@ -1,28 +1,36 @@
 
 ---
 
-````markdown
 # ✅ MiniBlockchain - Python Blockchain Implementation
-A lightweight, educational blockchain with Proof-of-Work, networking, and CLI interface**
 
-📦 Features
+**A lightweight, educational blockchain with Proof-of-Work, networking, and CLI interface**
+
+---
+
+## 📦 Features
+
 - 🧱 Block structure with cryptographic hashing  
 - ⛏️ Proof-of-Work mining with adjustable difficulty  
 - 🔗 Blockchain validation and tamper detection  
 - 🌐 Peer-to-peer networking  
 - 💻 Interactive CLI interface  
-- 📝 Transaction management
+- 📝 Transaction management  
 
-⚙️ Installation
-Prerequisites
+---
+
+## ⚙️ Installation
+
+### Prerequisites
+
 - Python 3.8+
 - Git
 
-Setup
-bash
+### Setup
+
+```bash
 # Clone repository
 git clone https://github.com/t-ed-c/mini-blockchain.git
-cd mini-blockchain
+cd mini-blockchain-python
 
 # Create virtual environment (Windows)
 python -m venv venv
@@ -30,6 +38,8 @@ venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+````
+
 ---
 
 ## 🚀 Quick Start
@@ -176,7 +186,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## ✉️ Contact
 
-Project Link: [mini-blockchain](https://github.com/t-ed-c/mini-blockchain.git)
+Project Link: [https://github.com/t-ed-c/mini-blockchain.git](https://github.com/t-ed-c/mini-blockchain.git)
 
 ---
 
