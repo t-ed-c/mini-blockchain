@@ -1,38 +1,28 @@
-Here's the **copy-ready `README.md`** version for your **MiniBlockchain** project (DApp references removed, focused on your Python blockchain implementation):
 
 ---
 
 ````markdown
 # ✅ MiniBlockchain - Python Blockchain Implementation
+A lightweight, educational blockchain with Proof-of-Work, networking, and CLI interface**
 
-**A lightweight, educational blockchain with Proof-of-Work, networking, and CLI interface**
-
----
-
-## 📦 Features
-
+📦 Features
 - 🧱 Block structure with cryptographic hashing  
 - ⛏️ Proof-of-Work mining with adjustable difficulty  
 - 🔗 Blockchain validation and tamper detection  
 - 🌐 Peer-to-peer networking  
 - 💻 Interactive CLI interface  
-- 📝 Transaction management  
+- 📝 Transaction management
 
----
-
-## ⚙️ Installation
-
-### Prerequisites
-
+⚙️ Installation
+Prerequisites
 - Python 3.8+
 - Git
 
-### Setup
-
-```bash
+Setup
+bash
 # Clone repository
-git clone https://github.com/<your-username>/mini-blockchain-python.git
-cd mini-blockchain-python
+git clone https://github.com/t-ed-c/mini-blockchain.git
+cd mini-blockchain
 
 # Create virtual environment (Windows)
 python -m venv venv
@@ -40,8 +30,6 @@ venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
-````
-
 ---
 
 ## 🚀 Quick Start
@@ -188,7 +176,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## ✉️ Contact
 
-Project Link: [https://github.com/<your-username>/mini-blockchain-python](https://github.com/t-ed-c/mini-blockchain.git)
+Project Link: [mini-blockchain](https://github.com/t-ed-c/mini-blockchain.git)
 
 ---
 
@@ -198,9 +186,4 @@ Project Link: [https://github.com/<your-username>/mini-blockchain-python](https:
 * [Proof-of-Work Explained](https://www.investopedia.com/terms/p/proof-work.asp)
 * [Blockchain Basics](https://www.ibm.com/topics/blockchain)
 
-```
-
----
-
-Let me know if you’d like a downloadable `.md` file or want to add diagrams, badges, or screenshots to this!
 ```
